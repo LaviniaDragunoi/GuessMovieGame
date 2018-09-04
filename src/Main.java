@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.File;
 
@@ -26,10 +25,18 @@ public class Main {
         }
         int randomNo = (int) (Math.random() * movieNumbers);
         String randomMovieName = movies.get(randomNo);
-
+        String emptyMovie = "";
+        for (int i = 0; i < randomMovieName.length(); i++){
+             if((" ").equals(randomMovieName.substring(i,i+1))) {
+                emptyMovie = emptyMovie + "  ";
+            } else {
+                emptyMovie = emptyMovie + "_ ";
+            }
+        }
 
         System.out.println("Random no is: " + randomNo);
         System.out.println("Movie name is: " + randomMovieName);
+        System.out.println("Empty movie name is: " + emptyMovie);
 
     }
 
