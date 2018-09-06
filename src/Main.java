@@ -25,20 +25,52 @@ public class Main {
         }
         int randomNo = (int) (Math.random() * movieNumbers);
         String randomMovieName = movies.get(randomNo);
-        String emptyMovie = "";
-        for (int i = 0; i < randomMovieName.length(); i++){
-             if((" ").equals(randomMovieName.substring(i,i+1))) {
-                emptyMovie = emptyMovie + "  ";
-            } else {
-                emptyMovie = emptyMovie + "_ ";
-            }
-        }
+        String coveredMovie = coverMovieName(randomMovieName);
 
-        System.out.println("Random no is: " + randomNo);
-        System.out.println("Movie name is: " + randomMovieName);
-        System.out.println("Empty movie name is: " + emptyMovie);
+
+        System.out.println("Guess the movie: " + coveredMovie);
+        System.out.println("Take a guess! Type a letter: ");
+
+        //Retrieve the user typed letter
+        Scanner inputScanner =  new Scanner(System.in);
+
+       while (coveredMovie.contains("_")){
+           String   inputLetter = inputScanner.nextLine();
+            String uncoverLettersMovieName = changeGuessedLetter(randomMovieName, coveredMovie, inputLetter);
+            System.out.println("Your progress: " + uncoverLettersMovieName);
+            coveredMovie = uncoverLettersMovieName;
+            System.out.println(randomMovieName);
+            System.out.println("Take a guess! Type a letter: ");
+        }
 
     }
 
 
+    private static String changeGuessedLetter(String movieName,String coveredName, String letter){
+        // Checking if the letter entered from the user is one of the letters from the movie name
+
+        for (int i = 0; i < movieName.length(); i++){
+            if(letter.equals(movieName.substring(i,i+1).toLowerCase())){
+
+                coveredName = coveredName.substring(0,i) + letter + coveredName.substring(i+1, movieName.length());
+            }
+
+        }
+        return coveredName;
+
+    }
+
+    public static String coverMovieName(String movieName){
+        String emptyMovie = "";
+        // Returning the movie name that should be guessed
+        for (int i = 0; i < movieName.length(); i++){
+            if((" ").equals(movieName.substring(i,i+1))) {
+                emptyMovie = emptyMovie + " ";
+
+            } else {
+                emptyMovie = emptyMovie + "_";
+            }
+        }
+        return emptyMovie;
+    }
 }
