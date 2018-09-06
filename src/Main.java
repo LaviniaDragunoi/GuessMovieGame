@@ -33,9 +33,14 @@ public class Main {
 
         //Retrieve the user typed letter
         Scanner inputScanner =  new Scanner(System.in);
-
+        //Array list that will track the letters input by the user
+        ArrayList<String> lettersList = new ArrayList<>();
        while (coveredMovie.contains("_")){
-           String   inputLetter = inputScanner.nextLine();
+           String   inputLetter = inputScanner.nextLine().toLowerCase();
+           if(lettersList.contains(inputLetter)) {
+               System.out.println(lettersList + "Choose another letter!");
+           }else  lettersList.add(inputLetter);
+
             String uncoverLettersMovieName = changeGuessedLetter(randomMovieName, coveredMovie, inputLetter);
             System.out.println("Your progress: " + uncoverLettersMovieName);
             coveredMovie = uncoverLettersMovieName;
