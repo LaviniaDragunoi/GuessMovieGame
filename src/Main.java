@@ -35,19 +35,37 @@ public class Main {
         Scanner inputScanner =  new Scanner(System.in);
         //Array list that will track the letters input by the user
         ArrayList<String> lettersList = new ArrayList<>();
-       while (coveredMovie.contains("_")){
-           String   inputLetter = inputScanner.nextLine().toLowerCase();
-           if(lettersList.contains(inputLetter)) {
-               System.out.println(lettersList + "Choose another letter!");
-           }else  lettersList.add(inputLetter);
-
-            String uncoverLettersMovieName = changeGuessedLetter(randomMovieName, coveredMovie, inputLetter);
-            System.out.println("Your progress: " + uncoverLettersMovieName);
-            coveredMovie = uncoverLettersMovieName;
-            System.out.println(randomMovieName);
-            System.out.println("Take a guess! Type a letter: ");
-        }
-
+        int i =0 ;
+        String uncoverLettersMovieName = coveredMovie;
+       while (i < (randomMovieName.trim().length()+3)) {
+           i++;
+           String inputLetter = inputScanner.nextLine().toLowerCase();
+           if (randomMovieName.contains(inputLetter)) {
+              uncoverLettersMovieName = changeGuessedLetter(randomMovieName, coveredMovie, inputLetter);
+               System.out.println("Your progress: " + uncoverLettersMovieName);
+               coveredMovie = uncoverLettersMovieName;
+               System.out.println(randomMovieName);
+               System.out.println("Take a guess! Type a letter: ");
+           } else {
+               System.out.println("Try again!");
+               System.out.println("Your progress: " + uncoverLettersMovieName);
+               System.out.println("Choose another letter!");
+               inputLetter = inputScanner.nextLine().toLowerCase();
+               if (lettersList.contains(inputLetter)) {
+                   System.out.println("Your progress: " + uncoverLettersMovieName);
+                   System.out.println(lettersList + "Choose another letter!");
+                   lettersList.add(inputLetter);
+               } else {
+                   lettersList.add(inputLetter);
+                   System.out.println(lettersList + "Choose another letter!");
+               }
+           }
+       }
+       if(coveredMovie.equals(randomMovieName)){
+           System.out.println("You won!");
+       } else {
+           System.out.println("You loose!");
+       }
     }
 
 
